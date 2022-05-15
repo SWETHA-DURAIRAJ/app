@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fss/register.dart';
+import 'package:fss/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fss/sizeconfig.dart';
 
 class Start extends StatefulWidget {
   @override
@@ -10,24 +12,28 @@ class Start extends StatefulWidget {
 class _StartState extends State<Start> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: Container(
         child: Column(
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height - 250,
+              //  height: MediaQuery.of(context).size.height - 250,
+              // width: MediaQuery.of(context).size.width,
+              height: SizeConfig.screenHeight * 0.65,
+              width: SizeConfig.screenWidth,
               child: Image(
                 image: AssetImage("img/home.jpg"),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: SizeConfig.safeBlockHorizontal * 5),
             RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text: 'Make life ',
                   style: TextStyle(
-                      fontSize: 30.0,
+                      fontSize: SizeConfig.safeBlockHorizontal * 9,
                       fontFamily: 'Salsa',
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
@@ -38,23 +44,23 @@ class _StartState extends State<Start> {
                     TextSpan(
                         text: ' with',
                         style: TextStyle(
-                            fontSize: 30.0,
+                            fontSize: SizeConfig.safeBlockHorizontal * 9,
                             fontFamily: 'Salsa',
                             fontWeight: FontWeight.bold,
                             color: Colors.black)),
                     TextSpan(
-                        text: "  Fortified Security \nSystem",
+                        text: "  Fortified Security System",
                         style:
                             TextStyle(color: Color.fromRGBO(254, 201, 37, 1.0)))
                   ],
                 )),
-            SizedBox(height: 10.0),
+            SizedBox(height: SizeConfig.safeBlockHorizontal * 5),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => register()),
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

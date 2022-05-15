@@ -7,6 +7,8 @@ import 'package:fss/startpage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/gestures.dart';
 import 'package:fss/usermodel.dart';
+import 'package:fss/wifi.dart';
+import 'package:fss/sizeconfig.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class register extends StatefulWidget {
@@ -58,8 +60,12 @@ class _registerState extends State<register> {
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.account_circle),
-                contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                hintText: "Mobile Number",
+                contentPadding: EdgeInsets.fromLTRB(
+                    SizeConfig.safeBlockHorizontal * 4,
+                    SizeConfig.safeBlockHorizontal * 4,
+                    SizeConfig.safeBlockHorizontal * 4,
+                    SizeConfig.safeBlockHorizontal * 4),
+                hintText: "User Name",
                 filled: true,
                 //  fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -84,7 +90,11 @@ class _registerState extends State<register> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.phone),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4),
           hintText: "Mobile Number",
           filled: true,
           //  fillColor: Colors.white,
@@ -116,7 +126,11 @@ class _registerState extends State<register> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.mail),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4),
           hintText: "Email",
           filled: true,
           //  fillColor: Colors.white,
@@ -146,7 +160,11 @@ class _registerState extends State<register> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4),
           hintText: "Password",
           filled: true,
           //  fillColor: Colors.white,
@@ -175,7 +193,11 @@ class _registerState extends State<register> {
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4),
           hintText: "Confirm Password",
           filled: true,
           //  fillColor: Colors.white,
@@ -212,7 +234,7 @@ class _registerState extends State<register> {
 
     /*Material(
       elevation: 5,
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular30),
       
       color: Colors.redAccent,
       child: MaterialButton(
@@ -297,14 +319,14 @@ class _registerState extends State<register> {
                             Text(
                               'Welcome!',
                               style: TextStyle(
-                                fontSize: 40,
+                                fontSize: SizeConfig.safeBlockHorizontal * 10,
                                 fontFamily: 'Salsa',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
                             Container(
-                              height: 90,
+                              height: SizeConfig.safeBlockHorizontal * 25,
                               child: Image(
                                 image: AssetImage("img/hand.png"),
                                 // fit: BoxFit.cover,
@@ -312,27 +334,27 @@ class _registerState extends State<register> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10.0),
+                        SizedBox(height: SizeConfig.safeBlockHorizontal * 3),
                         Text(
                           'Create Account',
                           style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: SizeConfig.safeBlockHorizontal * 7,
                             fontFamily: 'Salsa',
                             fontWeight: FontWeight.normal,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: SizeConfig.safeBlockHorizontal * 7),
                         firstNameField,
-                        SizedBox(height: 20),
+                        SizedBox(height: SizeConfig.safeBlockHorizontal * 7),
                         emailField,
-                        SizedBox(height: 20),
+                        SizedBox(height: SizeConfig.safeBlockHorizontal * 7),
                         secondNameField,
-                        SizedBox(height: 20),
+                        SizedBox(height: SizeConfig.safeBlockHorizontal * 7),
                         passwordField,
-                        SizedBox(height: 20),
+                        SizedBox(height: SizeConfig.safeBlockHorizontal * 7),
                         confirmPasswordField,
-                        SizedBox(height: 40),
+                        SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
                         signUpButton,
                       ],
                     ),
@@ -355,7 +377,7 @@ class _registerState extends State<register> {
                   postDetailsToFirestore(),
                   Fluttertoast.showToast(msg: "Registered Successful"),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Start())),
+                      MaterialPageRoute(builder: (context) => wifi())),
                 })
             .catchError((e) {
           Fluttertoast.showToast(msg: e!.message);

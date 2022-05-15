@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fss/login.dart';
+import 'package:fss/nav.dart';
+
 import 'package:fss/register.dart';
 import 'package:fss/signin.dart';
 import 'package:fss/startpage.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.orange),
       debugShowCheckedModeBanner: false,
-      home: Start(),
+      home: Nav(),
     );
   }
 }

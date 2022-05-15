@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
+import 'package:fss/register.dart';
 import 'package:fss/startpage.dart';
+import 'package:fss/sizeconfig.dart';
+import 'package:fss/wifi.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -63,7 +66,11 @@ class _LoginScreenState extends State<LoginScreen> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.mail),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4),
           hintText: "Email",
           filled: true,
           //  fillColor: Colors.white,
@@ -93,7 +100,11 @@ class _LoginScreenState extends State<LoginScreen> {
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4),
           hintText: "Password",
           filled: true,
           //  fillColor: Colors.white,
@@ -123,12 +134,16 @@ class _LoginScreenState extends State<LoginScreen> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.mail),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: EdgeInsets.fromLTRB(
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4,
+              SizeConfig.safeBlockHorizontal * 4),
           hintText: "Email",
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
             borderSide: BorderSide.none,
           ),
         ));
@@ -144,43 +159,30 @@ class _LoginScreenState extends State<LoginScreen> {
           primary: Color(0xf270cafc),
           shadowColor: Color(0xfff9f9f9)),
       child: Text(
-        "REGISTER",
+        "Login",
+        style: GoogleFonts.righteous(
+          textStyle: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ),
+    );
+    final resetButton = ElevatedButton(
+      onPressed: () {
+        resetPassword(emailController.text);
+      },
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          primary: Color(0xf270cafc),
+          shadowColor: Color(0xfff9f9f9)),
+      child: Text(
+        "Reset",
         style: GoogleFonts.righteous(
           textStyle: TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),
     );
 
-    final resetButton = Container(
-      width: 250,
-      height: 60,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x3f000000),
-            blurRadius: 20,
-            offset: Offset(10, 10),
-          ),
-        ],
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xff2da9dc), Color(0xff0e2d77)],
-        ),
-      ),
-      child: MaterialButton(
-        child: Text(
-          'Reset',
-          style: GoogleFonts.righteous(
-            textStyle: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ),
-        onPressed: () {
-          resetPassword(emailController.text);
-        },
-      ),
-    );
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -210,11 +212,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SingleChildScrollView(
                       /*  reverse: true,*/
 
-                      physics: AlwaysScrollableScrollPhysics(),
-                      /* physics: NeverScrollableScrollPhysics(),*/
+                      /*  physics: AlwaysScrollableScrollPhysics(),*/
+                      physics: NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.symmetric(
                         horizontal: 20.0,
-                        vertical: 100.0,
+                        vertical: SizeConfig.safeBlockHorizontal * 40,
                       ),
                       child: Column(
                         children: [
@@ -222,35 +224,172 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Sign Up!',
+                                'Login ',
                                 style: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: SizeConfig.safeBlockHorizontal * 10,
                                   fontFamily: 'Salsa',
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
                               ),
                               Container(
-                                height: 90,
+                                height: SizeConfig.safeBlockHorizontal * 20,
                                 child: Image(
-                                  image: AssetImage("img/sign.png"),
+                                  image: AssetImage("img/login.png"),
                                   // fit: BoxFit.cover,
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Container(
+                          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+                          emailField,
+                          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+                          passwordField,
+                          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+                          GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                        color: Color(0xffffdb7f),
+                                        borderRadius: new BorderRadius.only(
+                                            topLeft:
+                                                const Radius.circular(20.0),
+                                            topRight:
+                                                const Radius.circular(20.0))),
+                                    height:
+                                        MediaQuery.of(context).size.height / 2,
+                                    child: SingleChildScrollView(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      reverse: true,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            SizeConfig.safeBlockHorizontal * 10,
+                                        vertical:
+                                            SizeConfig.safeBlockVertical * 10,
+                                      ),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'Forget\npassword   ',
+                                                  style: TextStyle(
+                                                    fontSize: SizeConfig
+                                                            .safeBlockHorizontal *
+                                                        8,
+                                                    fontFamily: 'Salsa',
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: SizeConfig
+                                                          .safeBlockHorizontal *
+                                                      30,
+                                                  child: Image(
+                                                    image: AssetImage(
+                                                        "img/forget.png"),
+                                                    // fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                                height: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7),
+                                            Center(child: resetpasswordField),
+                                            SizedBox(
+                                                height: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7),
+                                            resetButton,
+                                            SizedBox(
+                                                height: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7),
+                                            RichText(
+                                              textAlign: TextAlign.center,
+                                              text:
+                                                  TextSpan(children: <TextSpan>[
+                                                TextSpan(
+                                                    text: "Back to ",
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                TextSpan(
+                                                    text: "Login",
+                                                    style: TextStyle(
+                                                        color: Colors.blue,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    recognizer:
+                                                        TapGestureRecognizer()
+                                                          ..onTap = () {
+                                                            print(
+                                                                'Login Text Clicked');
+                                                            Navigator.pop(
+                                                                context);
+                                                          }),
+                                              ]),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                             child: Text(
-                              "Create  Account Quickly",
+                              "Forget Password?",
                               style: TextStyle(
-                                  fontFamily: 'Wellfleet',
-                                  color: Color(0xff1a22ed),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
+                                  color: Color(0xff06b7ff),
+                                  fontSize: SizeConfig.safeBlockHorizontal * 4),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+                          loginButton,
+                          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(children: <TextSpan>[
+                              TextSpan(
+                                  text: "Don't have an account?",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize:
+                                          SizeConfig.safeBlockHorizontal * 4,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                  text: " Sign up",
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize:
+                                          SizeConfig.safeBlockHorizontal * 5,
+                                      fontWeight: FontWeight.bold),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      print('Login Text Clicked');
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => register()),
+                                      );
+                                    }),
+                            ]),
+                          ),
+                          SizedBox(height: SizeConfig.safeBlockHorizontal * 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -258,19 +397,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text(
                                   "Also login with",
                                   style: TextStyle(
-                                    color: Colors.black,
-                                  ),
+                                      color: Colors.black,
+                                      fontSize:
+                                          SizeConfig.safeBlockHorizontal * 4),
                                 ),
                               ),
                               Container(
-                                height: 50,
+                                height: SizeConfig.safeBlockHorizontal * 12,
                                 child: Image(
                                   image: AssetImage("img/facebook.png"),
                                   // fit: BoxFit.cover,
                                 ),
                               ),
                               Container(
-                                height: 50,
+                                height: SizeConfig.safeBlockHorizontal * 12,
                                 child: Image(
                                   image: AssetImage("img/Google.png"),
                                   // fit: BoxFit.cover,
@@ -279,44 +419,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           SizedBox(
-                            height: 20,
+                            height: SizeConfig.safeBlockHorizontal * 10,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Login',
-                                style: TextStyle(
-                                  fontSize: 35,
-                                  fontFamily: 'Salsa',
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Container(
-                                height: 90,
-                                child: Image(
-                                  image: AssetImage("img/login.png"),
-                                  // fit: BoxFit.cover,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          emailField,
-                          SizedBox(height: 10),
-                          passwordField,
-                          SizedBox(height: 10),
-                          Container(
-                            child: Text(
-                              "Forget Password?",
-                              style: TextStyle(
-                                color: Color(0xff06b7ff),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          loginButton,
                         ],
                       )),
                 )
@@ -342,7 +446,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => Start())),
+                      MaterialPageRoute(builder: (context) => wifi())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
